@@ -44,5 +44,18 @@ public class PhoneBookTest {
                 Arguments.of("Name3", "89999999993", "Name3")
         );
     }
-
+    @ParameterizedTest
+    @MethodSource("findByNameSource")
+    public void testFindByName(String name, String number, String expected){
+        phoneBook.getContactList().put(name, number);
+        String result = phoneBook.findByName(name);
+        Assertions.assertEquals(expected, result);
+    }
+    public static Stream<Arguments> findByNameSource(){
+        return Stream.of(
+                Arguments.of("Name1", "89999999991", "89999999991"),
+                Arguments.of("Name2", "89999999992", "89999999992"),
+                Arguments.of("Name3", "89999999993", "89999999993")
+        );
+    }
 }

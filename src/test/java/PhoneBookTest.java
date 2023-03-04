@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -7,6 +9,11 @@ import java.util.stream.Stream;
 
 public class PhoneBookTest {
     PhoneBook phoneBook = PhoneBook.getInstance();
+    @AfterEach
+    public void afterEach(){
+        phoneBook.getContactList().clear();
+    }
+
     @ParameterizedTest
     @MethodSource("addSource")
     public void testAdd(String name, String number, int expected) {
@@ -18,6 +25,20 @@ public class PhoneBookTest {
                 Arguments.of("Name1", "89999999990", 1),
                 Arguments.of("Name2", "89999999991", 2),
                 Arguments.of("Name3", "89999999992", 3)
+        );
+    }
+    @ParameterizedTest
+    @MethodSource("findByNumberSource")
+    public void testFindByNumber(String name, String number, String expected){
+        phoneBook.getContactList().put(name, number);
+        String result = phoneBook.findByNumber(number);
+        Assertions.assertEquals(expected, result);
+    }
+    public static Stream<Arguments> findByNumberSource(){
+        return Stream.of(
+                Arguments.of("Name1", "89999999990", "Name1"),
+                Arguments.of("Name2", "89999999991", "Name2"),
+                Arguments.of("Name3", "89999999992", "Name3")
         );
     }
 }

@@ -58,4 +58,18 @@ public class PhoneBookTest {
                 Arguments.of("Name3", "89999999993", "89999999993")
         );
     }
+    @ParameterizedTest
+    @MethodSource("printAllNAmesSource")
+    public void printAllNames(String name1, String number1, String name2, String number2){
+        phoneBook.getContactList().put(name1, number1);
+        phoneBook.getContactList().put(name2, number2);
+        phoneBook.printAllNames();
+    }
+    public static Stream<Arguments> printAllNAmesSource(){
+        return Stream.of(
+                Arguments.of("Name1", "89999999991", "Name2", "89999999992"),
+                Arguments.of("Name2", "89999999992", "Name3", "89999999993"),
+                Arguments.of("Name3", "89999999993", "Name1", "89999999991")
+        );
+    }
 }

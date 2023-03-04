@@ -14,6 +14,7 @@ public class PhoneBook {
         return contactList;
     }
     public int add(String name, String number){
-        return 0;
+        contactList.put(name, number);
+        return contactList.size();
     }
 }

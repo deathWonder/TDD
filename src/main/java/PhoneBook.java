@@ -35,5 +35,9 @@ public class PhoneBook {
         return null;
     }
     public void printAllNames(){
+        contactList.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(System.out::println);
     }
 }

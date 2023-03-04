@@ -18,6 +18,13 @@ public class PhoneBook {
         return contactList.size();
     }
     public String findByNumber(String number){
+        if (contactList.containsValue(number)) {
+            for (Map.Entry<String, String> entry : contactList.entrySet()) {
+                if (number.equals(entry.getValue())) {
+                    return entry.getKey();
+                }
+            }
+        }
         return null;
     }
 }
